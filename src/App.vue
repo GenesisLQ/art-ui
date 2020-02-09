@@ -3,7 +3,7 @@
     <!-- 普通按钮 -->
     <div class="row">
       <art-button @click="fn">按钮</art-button>
-      <art-button type="primary">按钮</art-button>
+      <art-button type="primary" @click="visible = true">按钮</art-button>
       <art-button type="success">按钮</art-button>
       <art-button type="warning">按钮</art-button>
       <art-button type="danger">按钮</art-button>
@@ -45,15 +45,39 @@
       <art-button circle icon="art-icon-sousuo-" type="danger"> </art-button>
       <art-button circle icon="art-icon-dingwei-" type="info"> </art-button>
     </div>
+
+    <!-- 对话框 -->
+    <div class="row">
+      <!-- <art-dialog title="温馨提示"></art-dialog> -->
+      <art-dialog :visible.sync="visible" width="30%">
+        <!-- 就表示 template 是用来渲染名为 title 的插槽 -->
+        <template v-slot:title>
+          <h3>标题</h3>
+        </template>
+        我是内容啊
+        <template v-slot:footer>
+          <art-button @click="visible = false">取消</art-button>
+          <art-button type="primary" @click="visible = false">确定</art-button>
+        </template>
+      </art-dialog>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
+  data () {
+    return {
+      visible: false
+    }
+  },
   name: 'app',
   methods: {
     fn () {
-      console.log('123')
+      console.log('按钮可以点击')
+    },
+    close (value) {
+      this.visible = value
     }
   }
 }
